@@ -7,7 +7,7 @@ const fs      = require('fs');
 
 async function uploadFileToGCS(audioFilePath, audioFileName) {
          const storage = new Storage();
-         const bucketName = 'gs://voice2note';
+         const bucketName = 'gs://koremomgen';
         var resp =  await storage.bucket(bucketName).upload(audioFilePath, {
                  gzip: false,
                  metadata: {
