@@ -422,7 +422,7 @@ http://botmodeler.kore.ai:2727/record
 {
   Called: '+917032277565',
   Digits: 'hangup',
-  RecordingUrl: 'https://api.twilio.com/2010-04-01/Accounts/ACcea0991dae7309b636cbbc26e1eeff27/Recordings/RE6924c3693b7b58a3ff7b823b71c20ac3',
+  RecordingUrl: 'https://api.twilio.com/2010-04-01/Accounts/ACXXXXXXXXXXXXXXXXXXXXXXXXXXX27/Recordings/RE6924c3693b7b58a3ff7b823b71c20ac3',
   ToState: '',
   CallerCountry: 'US',
   Direction: 'outbound-api',
@@ -438,7 +438,7 @@ http://botmodeler.kore.ai:2727/record
   CallStatus: 'completed',
   RecordingSid: 'RE6924c3693b7b58a3ff7b823b71c20ac3',
   From: '+16465028560',
-  AccountSid: 'ACcea0991dae7309b636cbbc26e1eeff27',
+  AccountSid: 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXX27',
   CalledCountry: 'IN',
   CallerCity: 'NEW YORK',
   Caller: '+16465028560',
