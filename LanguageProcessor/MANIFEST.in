@@ -1,0 +1,2 @@
+include LanguageModel/languages/*/*.json
+include LanguageModel/languages/*/*.pkl
