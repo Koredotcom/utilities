@@ -1,7 +1,7 @@
 from konlpy.tag import Mecab
 
-from ...Processor import Processor
-from ...config import MECAB_KO_DIR
+from LanguageModel.Processor import Processor
+from LanguageModel.config import MECAB_KO_DIR
 
 if MECAB_KO_DIR:
     print('mecab dir present -- {}'.format(MECAB_KO_DIR))

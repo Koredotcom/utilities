@@ -1,6 +1,6 @@
 from mosestokenizer import MosesTokenizer
 
-from ...Processor import Processor
+from LanguageModel.Processor import Processor
 from .kazlemmatizer import KazakhLemmatizer
 
 kazakh_lemmatizer = KazakhLemmatizer()

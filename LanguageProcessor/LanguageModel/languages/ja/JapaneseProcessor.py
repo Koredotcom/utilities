@@ -1,6 +1,6 @@
 import tinysegmenter
 
-from ...Processor import Processor
+from LanguageModel.Processor import Processor
 
 stem_ja = tinysegmenter.TinySegmenter()
 

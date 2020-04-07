@@ -2,8 +2,7 @@ from nltk import word_tokenize
 from nltk.stem.isri import ISRIStemmer
 from nltk.stem.snowball import SnowballStemmer
 
-from ...Processor import Processor
-
+from LanguageModel.Processor import Processor
 language = 'arabic'
 sn_stemmer = SnowballStemmer(language)
 isris_stemmer = ISRIStemmer()

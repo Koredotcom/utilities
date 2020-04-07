@@ -3,7 +3,7 @@ import traceback
 
 from nltk import word_tokenize
 
-from ...Processor import Processor
+from LanguageModel.Processor import Processor
 
 dirpath = __file__[:__file__.rfind("/")]
 

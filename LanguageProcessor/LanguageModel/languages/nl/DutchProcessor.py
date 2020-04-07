@@ -1,5 +1,5 @@
-from ...Processor import Processor
-from ...common import read_file
+from LanguageModel.Processor import Processor
+from LanguageModel.common import read_file
 from nltk import word_tokenize
 from nltk.stem.snowball import SnowballStemmer
 

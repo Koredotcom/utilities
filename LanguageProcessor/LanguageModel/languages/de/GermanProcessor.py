@@ -1,7 +1,7 @@
 from nltk import word_tokenize
 from nltk.stem.snowball import SnowballStemmer
 
-from ...Processor import Processor
+from LanguageModel.Processor import Processor
 
 try:
     import LanguageDetection

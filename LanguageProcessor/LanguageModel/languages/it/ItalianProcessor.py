@@ -1,11 +1,10 @@
 import pickle
 import traceback
 
+from LanguageModel.Processor import Processor
+from LanguageModel.common import SUPPORTED_LANGUAGES
 from nltk import word_tokenize
 from pattern.it import lemma as lemma_it
-
-from ...Processor import Processor
-from ...common import SUPPORTED_LANGUAGES
 
 dirpath = __file__[:__file__.rfind("/")]
 
@@ -45,3 +44,9 @@ class ItalianProcessor(Processor):
 
     def parse(self, sentence):
         pass
+
+
+if __name__ == "__main__":
+    k_p = ItalianProcessor({'lang': 'it'})
+    doc = "this is italina"
+    print(k_p.lemma(doc))

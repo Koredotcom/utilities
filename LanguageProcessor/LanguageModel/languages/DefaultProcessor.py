@@ -1,5 +1,5 @@
-from ..Processor import Processor
-from ..common import *
+from LanguageModel.Processor import Processor
+from LanguageModel.common import *
 from nltk import word_tokenize, SnowballStemmer
 
 

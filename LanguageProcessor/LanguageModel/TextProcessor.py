@@ -41,7 +41,7 @@ def get_text_processor(params):
 
 if __name__ == "__main__":
     params = {
-        'lang': 'ko',
+        'lang': 'en',
         'COMPOUND_WORD_SPLIT_DE': False,
         'COMPOUND_WORD_SPLIT_NL': False,
         'en_lemma': 'WORDNET',  # options: PATTERN and WORDNET,default wordnet
@@ -50,5 +50,5 @@ if __name__ == "__main__":
         'pt_lemma': 'RSLP',  # options: SNOWBALL and RSLP,default RSLP
     }
     l_processor = get_text_processor(params)
-    sentence = "이것은 토크 나이저를 미리로드하는 것입니다"
+    sentence = "show me my spendings"
     print(l_processor.lemma(sentence))

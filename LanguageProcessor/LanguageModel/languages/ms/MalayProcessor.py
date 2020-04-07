@@ -1,6 +1,6 @@
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
-from ...Processor import Processor
+from LanguageModel.Processor import Processor
 
 factory = StemmerFactory()
 stemmer = factory.create_stemmer()

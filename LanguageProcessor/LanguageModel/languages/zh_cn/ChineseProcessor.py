@@ -1,4 +1,4 @@
-from ...Processor import Processor
+from LanguageModel.Processor import Processor
 
 
 class ChineseProcessor(Processor):

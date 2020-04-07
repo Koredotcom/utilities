@@ -24,6 +24,7 @@ LanguageModel/languages/en/english_dictionary.json
 LanguageModel/languages/it/ItalianProcessor.py
 LanguageModel/languages/it/__init__.py
 LanguageModel/languages/it/lemma_it.pkl
+LanguageModel/languages/it/sample.py
 LanguageModel/languages/ja/JapaneseProcessor.py
 LanguageModel/languages/ja/__init__.py
 LanguageModel/languages/kk/KazakhProcessor.py

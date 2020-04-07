@@ -6,7 +6,7 @@ from nltk.stem import WordNetLemmatizer
 from nltk.stem.snowball import SnowballStemmer
 from pattern.en import lemma as lemma_en
 
-from ...Processor import Processor
+from LanguageModel.Processor import Processor
 
 wnl = WordNetLemmatizer()
 wordnet.ensure_loaded()
