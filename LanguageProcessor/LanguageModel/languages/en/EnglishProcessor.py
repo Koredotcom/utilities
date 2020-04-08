@@ -7,6 +7,7 @@ from nltk.stem.snowball import SnowballStemmer
 from pattern.en import lemma as lemma_en
 
 from LanguageModel.Processor import Processor
+from LanguageModel.common import SUPPORTED_LANGUAGES
 
 wnl = WordNetLemmatizer()
 wordnet.ensure_loaded()
@@ -68,7 +69,7 @@ en_dict = EnglishDict()
 class EnglishProcessor(Processor):
 
     def tokenize(self, doc):
-        return word_tokenize(doc, language=language_code)
+        return word_tokenize(doc, language=SUPPORTED_LANGUAGES[language_code])
 
     def english_lemmatizer(self, tokens):
         """ english lemma"""

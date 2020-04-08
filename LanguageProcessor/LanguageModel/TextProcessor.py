@@ -1,17 +1,17 @@
-from .languages.DefaultProcessor import DefaultProcessor as default_sent_processor
-from .languages.ar.ArabicProcessor import ArabicProcessor as ar_sent_processor
-from .languages.de.GermanProcessor import GermanProcessor as de_sent_processor
-from .languages.en.EnglishProcessor import EnglishProcessor as en_sent_processor
-from .languages.it.ItalianProcessor import ItalianProcessor as it_sent_processor
-from .languages.ja.JapaneseProcessor import JapaneseProcessor as ja_sent_processor
-from .languages.kk.KazakhProcessor import KazakhProcessor as kk_sent_processor
-from .languages.ms.MalayProcessor import MalayProcessor as ms_sent_processor
-from .languages.nl.DutchProcessor import DutchProcessor as nl_sent_processor
-from .languages.pl.PolishProcessor import PolishProcessor as pl_sent_processor
-from .languages.pt.PortugeseProcessor import PortugeseProcessor as pt_sent_processor
-from .languages.uk.UkraineProcessor import UkraineProcessor as uk_sent_processor
-from .languages.zh_cn.ChineseProcessor import ChineseProcessor as zh_cn_sent_processor
-from .languages.ko.KoreanProcessor import KoreanProcessor as ko_sent_processor
+from LanguageModel.languages.DefaultProcessor import DefaultProcessor as default_sent_processor
+from LanguageModel.languages.ar.ArabicProcessor import ArabicProcessor as ar_sent_processor
+from LanguageModel.languages.de.GermanProcessor import GermanProcessor as de_sent_processor
+from LanguageModel.languages.en.EnglishProcessor import EnglishProcessor as en_sent_processor
+from LanguageModel.languages.it.ItalianProcessor import ItalianProcessor as it_sent_processor
+from LanguageModel.languages.ja.JapaneseProcessor import JapaneseProcessor as ja_sent_processor
+from LanguageModel.languages.kk.KazakhProcessor import KazakhProcessor as kk_sent_processor
+from LanguageModel.languages.ms.MalayProcessor import MalayProcessor as ms_sent_processor
+from LanguageModel.languages.nl.DutchProcessor import DutchProcessor as nl_sent_processor
+from LanguageModel.languages.pl.PolishProcessor import PolishProcessor as pl_sent_processor
+from LanguageModel.languages.pt.PortugeseProcessor import PortugeseProcessor as pt_sent_processor
+from LanguageModel.languages.uk.UkraineProcessor import UkraineProcessor as uk_sent_processor
+from LanguageModel.languages.zh_cn.ChineseProcessor import ChineseProcessor as zh_cn_sent_processor
+from LanguageModel.languages.ko.KoreanProcessor import KoreanProcessor as ko_sent_processor
 
 text_processors = {
     'en': en_sent_processor,

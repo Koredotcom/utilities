@@ -17,6 +17,7 @@ except:
     lemmatizer_dict = {}
 
 
+
 class ItalianProcessor(Processor):
 
     def tokenize(self, doc):

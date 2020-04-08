@@ -3,8 +3,10 @@ from nltk.stem.isri import ISRIStemmer
 from nltk.stem.snowball import SnowballStemmer
 
 from LanguageModel.Processor import Processor
-language = 'arabic'
-sn_stemmer = SnowballStemmer(language)
+from LanguageModel.common import SUPPORTED_LANGUAGES
+
+language_code = 'ar'
+sn_stemmer = SnowballStemmer(SUPPORTED_LANGUAGES[language_code])
 isris_stemmer = ISRIStemmer()
 
 

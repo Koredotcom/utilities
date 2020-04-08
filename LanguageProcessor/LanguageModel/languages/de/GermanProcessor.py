@@ -1,18 +1,19 @@
+from LanguageModel.Processor import Processor
 from nltk import word_tokenize
 from nltk.stem.snowball import SnowballStemmer
 
-from LanguageModel.Processor import Processor
+from LanguageModel.common import SUPPORTED_LANGUAGES
 
 try:
     import LanguageDetection
 
     LANG_DETECT_AVAILABLE = True
 except:
+    print('Error in importing LanguageDetection module')
     LANG_DETECT_AVAILABLE = False
 
 language_code = 'de'
-language = 'german'
-stemmer = SnowballStemmer(language)
+stemmer = SnowballStemmer(SUPPORTED_LANGUAGES[language_code])
 
 '''
 Required configuration params 
@@ -24,7 +25,7 @@ Required configuration params
 
 class GermanProcessor(Processor):
     def tokenize(self, doc):
-        return word_tokenize(doc, language=language)
+        return word_tokenize(doc, language=SUPPORTED_LANGUAGES[language_code])
 
     def break_compund_words(self, sentence):
         if not self.params.get('COMPOUND_WORD_SPLIT_DE', False):
@@ -32,7 +33,7 @@ class GermanProcessor(Processor):
         else:
             if LANG_DETECT_AVAILABLE:
                 try:
-                    sentence, _ = LanguageDetection.split_compound(sentence, 'de')
+                    sentence, _ = LanguageDetection.split_compound(sentence, language_code)
                 except:
                     pass
             return sentence

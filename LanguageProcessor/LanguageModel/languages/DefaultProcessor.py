@@ -14,8 +14,14 @@ class DefaultProcessor(Processor):
         tokens = self.tokenize(doc)
         if self.params.get('lang') in SNOWBALL_SUPPORT:
             stemmer = SnowballStemmer(SUPPORTED_LANGUAGES[self.params.get('lang')])
-            return [stemmer.stem(word) for word in tokens]
-        return tokens
+            tokens = [stemmer.stem(word) for word in tokens]
+        lemma_tokens = list()
+        for word in tokens:
+            result = dict()
+            result['lemma'] = word
+            result['pos'] = ''
+            lemma_tokens.append(result)
+        return lemma_tokens
 
     def parse(self, sentence):
         pass
