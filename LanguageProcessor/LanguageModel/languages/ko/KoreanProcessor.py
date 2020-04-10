@@ -4,9 +4,11 @@ from LanguageModel.Processor import Processor
 from LanguageModel.config import MECAB_KO_DIR
 
 if MECAB_KO_DIR:
-    print('mecab dir present -- {}'.format(MECAB_KO_DIR))
-    mecab = Mecab(MECAB_KO_DIR)
-
+    try:
+        print('mecab dir present -- {}'.format(MECAB_KO_DIR))
+        mecab = Mecab(MECAB_KO_DIR)
+    except:
+        print('Error in importing Mecab')
 
 class KoreanProcessor(Processor):
     def tokenize(self, doc):
