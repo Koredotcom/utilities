@@ -40,7 +40,7 @@
     "SERVER_FORMAT_STRING": "[%(asctime)s] %(message)s"
   }, 
   "server": {
-    "FORKS": 0, 
+    "FORKS": 1,
     "HOST": "0.0.0.0", 
     "PORT": 5001
   },
