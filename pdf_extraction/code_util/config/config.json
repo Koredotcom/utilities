@@ -1,0 +1,9 @@
+{
+  "pdf_extraction": {
+    "SEARCH_STRING": "",
+    "IMAGE_HOST_ENDPOINT" : "",
+    "S3_BUCKET_NAME" : "",
+    "SUB_FOLDER" : "rc1",
+    "UPLOAD_TO_S3": false
+  }
+}

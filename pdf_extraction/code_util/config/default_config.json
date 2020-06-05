@@ -1,0 +1,58 @@
+{
+  "db": {
+    "DB_NAME": "",
+    "MONGO_URI": "mongodb://localhost:27017",
+    "TEANAT_DB_NAME": ""
+  },
+  "pdf_extraction": {
+    "DOWNLOAD_DIRECTORY": "/mnt/nfs/",
+    "DOWNLOAD_TIMEOUT": 10,
+    "IMAGE_HOST_ENDPOINT" : "",
+    "S3_BUCKET_NAME" : "",
+    "SUB_FOLDER" : "",
+    "IGNORE_INTENTS": ["References", "Symbols"],
+    "INTENTS_WITH_SUBINTENTS": {
+        "Limits and ranges": ["Measuring range", "Lower limits of measurement"]
+      },
+    "EXTRACT_TABLES": true,
+    "IMAGE_RESOLUTION": 250,
+    "UPLOAD_TO_S3": false,
+    "CLI": {
+      "VAL": {
+        "ROW_BBOX_DELTA": {"x0": 110, "y0": 0, "x1": 50, "y1": 0}
+      }
+    },
+    "OM": {
+      "STITCH_IMAGES": false
+    },
+    "SEARCH_STRING": ""
+  },
+  "proxy": {
+    "USE_PROXY": false,
+    "PROXY_SETTING" : {
+              "http"  : "http://192.168.15.38:3128",
+              "https" : "https://192.168.15.38:3128"
+            }
+  },
+  "log": {
+    "DEBUG_LOG": "/var/www/logs/faq_debug.log", 
+    "FORMAT_STRING": "[%(asctime)s] p%(process)s %(levelname)s - %(message)s {%(pathname)s:%(lineno)d}", 
+    "SERVER_FORMAT_STRING": "[%(asctime)s] %(message)s"
+  }, 
+  "server": {
+    "FORKS": 0, 
+    "HOST": "0.0.0.0", 
+    "PORT": 5001
+  },
+  "ssl": {
+    "ML_SSL_VERIFY": false,
+    "FAQ_SSL": false,
+    "FAQ_SSL_CERT": "/etc/ssl/faq-cert.crt",
+    "FAQ_SSL_KEY": "/etc/ssl/faq-cert.key"
+  },
+  "remote_config": {
+    "USE_REMOTE_CONFIG": false
+  }
+}
+
+

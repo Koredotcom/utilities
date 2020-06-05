@@ -2,4 +2,7 @@ ScheduleMeeting/node_modules/
 ScheduleMeeting/package-lock.json
 ScheduleMeeting/config.json
 ScheduleMeeting/Asr/Google/GoogleCloudKeys.json
-
+__pycache__
+.ipynb_checkpoints
+*.pyc
+*.log
