@@ -94,6 +94,11 @@ class MethodExtractor(object):
         return qna_pair
 
     def extract_order_information(self, result):
+        """
+        Order information is present in first row of un-structured table at start of c_ms docs
+        @param result: list- qna object
+        """
+
         order_information = ''
         try:
             if self.document_type == 'c_ms':
@@ -164,7 +169,7 @@ class MethodExtractor(object):
 
     def extract_text(self, topic_headings, plain_text):
         """
-        Extract pdf into qna list
+        Separate topic headings from paragraph content
         :param topic_headings: list
         :param plain_text: list
         :return: list
@@ -214,7 +219,12 @@ class MethodExtractor(object):
         return revised
 
     def create_qna_pair(self, topic_headings, plain_text_lines):
-        """ Create question asnwer pairs from headings and plain_text"""
+        """
+        Create question asnwer pairs from headings and plain_text, with a max limit of 75 lines for an answer
+        @param topic_headings: list of headings in pdf
+        @param plain_text_lines: list of text lines with headings in new lines
+        @return:
+        """
 
         asnwer_lines = 75
 

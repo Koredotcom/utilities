@@ -56,7 +56,8 @@ class CreateExtractor(object):
 
 
 if __name__ == "__main__":
-    a = CreateExtractor({"type": "c_ms", "path": "/home/satyaaditya/Downloads/7.pdf"})
+    # a = CreateExtractor({"type": "c_ms", "path": "/home/satyaaditya/Documents/RocheSamples/clinical/parameter/1.pdf"})
+    a = CreateExtractor({"type": "e_vs", "path": "/home/satyaaditya/Documents/RocheSamples/Digitoxin/e801/value_sheet/ivs1.pdf"})
     result_ = a.extract()
     with open('output1.json', 'w') as fp:
         json.dump(result_.faq, fp, indent=2)

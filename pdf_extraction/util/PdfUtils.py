@@ -126,6 +126,11 @@ class Utils(object):
 
     # @decorator.timing
     def get_pdf_data_object(self):
+        """
+        creates an object with text, table and image info of a PDF
+        @return: list
+        """
+
         result_obj = list()
         pdf_text_by_page = dict()
         try:
@@ -160,6 +165,11 @@ class Utils(object):
             raise Exception
 
     def extract_order_information_cli(self):
+        """
+        identify bbox of OInfo string and bbox of next heading
+         and trim the content needed and get text of it
+        @return:
+        """
         answer = ''
         try:
             page = self.pdf_MuPDF_obj.loadPage(0)

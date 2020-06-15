@@ -148,6 +148,11 @@ class ValueSheetUtil(object):
             raise Exception
 
     def extract_in_out_analyzer_templates(self, analyzer_template):
+        """
+        If analyzer is outside table, pass analyzer info to all rows, that makes both templates uniform
+        Same components are stitched together
+        @param analyzer_template: str
+        """
         if analyzer_template == FIRST_PAGE_ANALYZER or analyzer_template == IN_TABLE_ANALYZER:
             header_count = 2
             result = dict()
@@ -227,6 +232,7 @@ class ValueSheetUtil(object):
     def extract_between_table_analyzer_template(self, analyzer_template):
         """
         extracts from between table analyzer template
+        stitch header image to all rows, group same components together
         :param analyzer_template:
         :return:
         """
