@@ -277,15 +277,12 @@ class Utils(object):
         ref_no = ''
         bbox = self.pdf_plumber_obj.pages[0].bbox
         page = self.pdf_plumber_obj.pages[0]
-        cropped_page = page.crop((bbox[0], bbox[1], bbox[2], bbox[1]+60))
-        page_text = cropped_page.extract_text()
-        # page_text = page.extract_text().split('\n')[0]
+        # cropped_page = page.crop((bbox[0], bbox[1], bbox[2], bbox[1]+60))
+        # page_text = cropped_page.extract_text()
+        page_text = page.extract_text().split('\n')[0]
         pattern_matches = self.reference_num_pattern.findall(page_text)
         if pattern_matches:
             ref_no = pattern_matches[0][1:] if pattern_matches[0][0].isupper() else pattern_matches[0]
-        print page_text
-        print pattern_matches
-        print
         return ref_no
 
 

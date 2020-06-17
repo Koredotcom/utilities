@@ -60,13 +60,13 @@ if __name__ == "__main__":
 
     t1 = time.time()
     for i in range(1,13):
-        a = CreateExtractor({"type": "c_ms", "path": "/home/satyaaditya/Downloads/" +str(i)+".pdf"})
+        a = CreateExtractor({"type": "c_ms", "path": "/home/satyaaditya/Downloads/roche version num docs/" +str(i)+".pdf"})
         # a = CreateExtractor({"type": "e_vs", "path": "/home/satyaaditya/Documents/RocheSamples/clinical/control/" +str(i)+".pdf"})
 
         result_ = a.extract()
-
-        with open('output1.json', 'w') as fp:
-            json.dump(result_.faq, fp, indent=2)
+        print result_.ref_no
+        # with open('output1.json', 'w') as fp:
+        #     json.dump(result_.faq, fp, indent=2)
     print (time.time() - t1) * 1000
     # b = a.get_extractor({"type":"e_ms"})
     # c = b.extract()
