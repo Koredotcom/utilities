@@ -127,6 +127,9 @@ class MethodExtractor(object):
             self.logger.error(traceback.format_exc())
             return []
 
+    def extract_reference_number(self):
+        return self.utils.extract_reference_number()
+
     # @decorator.timing
     def extract(self):
         """

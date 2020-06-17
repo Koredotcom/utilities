@@ -49,7 +49,7 @@ class ExtractionResult(object):
 
     @ref_no.setter
     def ref_no(self, value):
-        if isinstance(value, str):
+        if isinstance(value, basestring):
             self.__ref_no = value
 
     @property
