@@ -34,7 +34,7 @@ class Method(Extractor):
             self.extraction_result.extraction_count = len(self.extraction_result.faq)
 
         self.extraction_result.title = 'TODO'
-        self.extraction_result.ref_no = 'TODO'
+        self.extraction_result.ref_no = self.method_e.extract_reference_number()
         return self.extraction_result
 
     def validate(self):
