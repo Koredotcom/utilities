@@ -53,6 +53,16 @@ class ExtractionResult(object):
             self.__ref_no = value
 
     @property
+    def doc_year_month(self):
+        return self.__doc_year_month
+
+    @doc_year_month.setter
+    def doc_year_month(self, value):
+        if isinstance(value, basestring):
+            self.__doc_year_month = value
+
+
+    @property
     def pack_size(self):
         return self.__pack_size
 
