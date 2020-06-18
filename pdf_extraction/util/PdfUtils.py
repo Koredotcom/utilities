@@ -5,6 +5,7 @@ from pdf_extraction.code_util.config.ConfigManager import ConfigManager
 from pdf_extraction.code_util.storage.StorageManager import StorageManager
 from pdf_extraction.util import decorator
 from pdf_extraction import constants
+from pdf_extraction.util.ToC import get_toc
 import os
 import sys
 import pdfplumber
@@ -34,7 +35,7 @@ class Utils(object):
         self.page_no_pattern = re.compile('\d\s/\s\d')
 
     def get_table_of_contents(self):
-        return self.pdf_MuPDF_obj.getToC()
+        return get_toc(self.pdf_loc)
 
     # @decorator.timing
     def extract_page_text(self, page_no):
