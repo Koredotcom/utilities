@@ -32,6 +32,8 @@ class Utils(object):
         self.pdf_MuPDF_obj = fitz.Document(self.pdf_loc)
         self.is_splittable = True  # todo
         self.page_no_pattern = re.compile('\d\s/\s\d')
+        self.reference_num_pattern = re.compile('[a-z0-9_]+v.*\..*0', re.IGNORECASE)
+        self.doc_year_month_pattern = re.compile('[0-9]{1,4}-[0-9]{1,2}', re.IGNORECASE)
 
     def get_table_of_contents(self):
         return self.pdf_MuPDF_obj.getToC()
@@ -271,6 +273,50 @@ class Utils(object):
         except Exception:
             self.logger.error(traceback.format_exc())
             return []
+
+    def extract_reference_number(self):
+        try:
+            ref_no = ''
+            bbox = self.pdf_plumber_obj.pages[0].bbox
+            page = self.pdf_MuPDF_obj[0]
+            # cropped_page = page.crop((bbox[0], bbox[1], bbox[2], bbox[1]+60))
+            # page_text = cropped_page.extract_text()
+            page_text = page.getText()
+            pat_occurences = re.findall(self.page_no_pattern, page_text)
+            if pat_occurences:
+                index = page_text.find(pat_occurences[-1])
+                if index > -1:
+                    page_text = page_text.replace(page_text[:index], '')
+                    pattern_matches = self.reference_num_pattern.findall(page_text)
+                    if pattern_matches:
+                        ref_no = pattern_matches[0][1:] if pattern_matches[0][0].isupper() else pattern_matches[0]
+                    else:
+                        self.logger.warning('failed to fetch index of pattern')
+
+            return ref_no
+        except Exception:
+            self.logger.error(traceback.format_exc())
+            return ''
+
+
+    def extract_doc_year_month(self):
+        try:
+            year_month = ''
+            page = self.pdf_plumber_obj.pages[0]
+            page_text = page.extract_text()
+            page_text = page.extract_text().split('\n').pop()
+            pattern_matches = self.doc_year_month_pattern.findall(page_text)
+            if pattern_matches:
+                year_month = pattern_matches[0]
+            return year_month
+
+        except Exception:
+            self.logger.error(traceback.format_exc())
+            return ''
+
+
+
+
 
 
 if __name__ == "__main__":
