@@ -280,6 +280,12 @@ class MethodExtractor(object):
             result_list.append(copy.deepcopy(updated_obj))
         return result_list
 
+    def extract_assay_title_with_acronym(self):
+        assay = self.utils.get_assay()
+        return assay if not assay else assay.splitlines()
+
+    def extract_assay_title(self):
+        return self.utils.get_assay()
 
 if __name__ == "__main__":
     me = MethodExtractor('/home/surendra/Documents/pdf_extraction/SHBG.pdf')

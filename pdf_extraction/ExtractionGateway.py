@@ -51,7 +51,10 @@ class ExtractionGateway(object):
                                             'doc_year_month': extractor_result.doc_year_month,
                                             'title': extractor_result.title,
                                             'extraction_count': extractor_result.extraction_count,
+                                            'assay_title': extractor_result.assay_title
                                             }
+            if args.get('type') == 'c_ms':
+               final_response['extraction']['assay_acronym'] = extractor_result.assay_acronym
             if args.get('type') == 'c_ps':
                 final_response['extraction']['pack_size'] = extractor_result.pack_size
             logger.info('extraction count - {0}'.format(final_response.get('extraction').get('extraction_count')))

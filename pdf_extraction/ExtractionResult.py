@@ -16,6 +16,8 @@ class ExtractionResult(object):
         self.faq = list()
         self.ref_no = ''
         self.pack_size = []
+        self.assay_title =''
+        self.assay_acronym = ''
 
     @property
     def title(self):
@@ -70,3 +72,21 @@ class ExtractionResult(object):
     def pack_size(self, value):
         if isinstance(value, list):
             self.__pack_size = value
+
+    @property
+    def assay_title(self):
+        return self.__assay_title
+
+    @assay_title.setter
+    def assay_title(self, value):
+        if isinstance(value, basestring):
+            self.__assay_title = value
+
+    @property
+    def assay_acronym(self):
+        return self.__assay_acronym
+
+    @assay_acronym.setter
+    def assay_acronym(self, value):
+        if isinstance(value, basestring):
+            self.__assay_acronym = value

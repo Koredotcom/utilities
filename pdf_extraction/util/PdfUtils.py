@@ -315,8 +315,16 @@ class Utils(object):
             return ''
 
 
-
-
+    def get_assay(self):
+        page = self.pdf_plumber_obj.pages[0]
+        try:
+            bbox = page.bbox
+            new_bbox = (bbox[0], 60, bbox[2], bbox[1] + 80)
+            assay = self.__get_text_by_bbox(page, new_bbox)
+            return assay
+        except Exception:
+            self.logger.debug(traceback.format_exc())
+            return ''
 
 
 if __name__ == "__main__":

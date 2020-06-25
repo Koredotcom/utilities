@@ -36,6 +36,11 @@ class Method(Extractor):
         self.extraction_result.title = 'TODO'
         self.extraction_result.ref_no = self.method_e.extract_reference_number()
         self.extraction_result.doc_year_month = self.method_e.extract_doc_year_month()
+        assay_with_acronym = self.method_e.extract_assay_title_with_acronym()
+        if assay_with_acronym:
+            self.extraction_result.assay_acronym = assay_with_acronym[0]
+            self.extraction_result.assay_title = assay_with_acronym[1]
+
         return self.extraction_result
 
     def validate(self):
