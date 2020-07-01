@@ -39,7 +39,8 @@ class Method(Extractor):
                 self.extraction_result.assay_title = assay_with_acronym[1]
 
         self.extraction_result.title = 'TODO'
-        self.extraction_result.ref_no = self.method_e.extract_reference_number()
+        self.extraction_result.ref_no = 'TODO'
+        self.extraction_result.version_num = self.method_e.extract_version_number()
         self.extraction_result.doc_year_month = self.method_e.extract_doc_year_month()
 
 

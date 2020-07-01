@@ -274,7 +274,7 @@ class Utils(object):
             self.logger.error(traceback.format_exc())
             return []
 
-    def extract_reference_number(self):
+    def extract_version_number(self):
         try:
             ref_no = ''
             bbox = self.pdf_plumber_obj.pages[0].bbox

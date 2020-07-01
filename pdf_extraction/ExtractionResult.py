@@ -55,6 +55,15 @@ class ExtractionResult(object):
             self.__ref_no = value
 
     @property
+    def version_num(self):
+        return self.__version_num
+
+    @version_num.setter
+    def version_num(self, value):
+        if isinstance(value, basestring):
+            self.__version_num = value
+
+    @property
     def doc_year_month(self):
         return self.__doc_year_month
 

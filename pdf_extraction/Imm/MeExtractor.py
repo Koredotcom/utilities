@@ -28,7 +28,8 @@ class Method(Extractor):
         self.validate()
         self.extraction_result.extraction_count = len(self.extraction_result.faq)
         self.extraction_result.title = 'TODO'
-        self.extraction_result.ref_no = self.method_e.extract_reference_number()
+        self.extraction_result.ref_no = 'TODO'
+        self.extraction_result.version_num = self.method_e.extract_version_number()
         self.extraction_result.doc_year_month = self.method_e.extract_doc_year_month()
         self.extraction_result.assay_title = self.method_e.extract_assay_title()
         return self.extraction_result

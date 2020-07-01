@@ -47,6 +47,7 @@ class ExtractionGateway(object):
         final_response['extractionID'] = args.get('et_id')
         if hasattr(extractor_result, 'faq'):
             final_response['extraction'] = {'faq': extractor_result.faq,
+                                            'version_num': extractor_result.version_num,
                                             'ref_no': extractor_result.ref_no,
                                             'doc_year_month': extractor_result.doc_year_month,
                                             'title': extractor_result.title,
