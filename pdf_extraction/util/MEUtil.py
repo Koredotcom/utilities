@@ -287,6 +287,9 @@ class MethodExtractor(object):
     def extract_assay_title(self):
         return self.utils.get_assay()
 
+    def extract_reference_number(self):
+        return self.utils.extract_reference_number()
+
 if __name__ == "__main__":
     me = MethodExtractor('/home/surendra/Documents/pdf_extraction/SHBG.pdf')
     print me.extract()

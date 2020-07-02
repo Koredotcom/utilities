@@ -32,8 +32,9 @@ class Utils(object):
         self.pdf_MuPDF_obj = fitz.Document(self.pdf_loc)
         self.is_splittable = True  # todo
         self.page_no_pattern = re.compile('\d\s/\s\d')
-        self.reference_num_pattern = re.compile('[a-z0-9_]+v.*\..*0', re.IGNORECASE)
+        self.version_num_pattern = re.compile('[a-z0-9_]+v.*\..*0', re.IGNORECASE)
         self.doc_year_month_pattern = re.compile('[0-9]{1,4}-[0-9]{1,2}', re.IGNORECASE)
+        self.reference_num_pattern = re.compile('(\d{11}|\d{8} \d{3})', re.IGNORECASE)
 
     def get_table_of_contents(self):
         return self.pdf_MuPDF_obj.getToC()
@@ -287,7 +288,7 @@ class Utils(object):
                 index = page_text.find(pat_occurences[-1])
                 if index > -1:
                     page_text = page_text.replace(page_text[:index], '')
-                    pattern_matches = self.reference_num_pattern.findall(page_text)
+                    pattern_matches = self.version_num_pattern.findall(page_text)
                     if pattern_matches:
                         ref_no = pattern_matches[0][1:] if pattern_matches[0][0].isupper() else pattern_matches[0]
                     else:
@@ -322,6 +323,20 @@ class Utils(object):
             new_bbox = (bbox[0], 60, bbox[2], bbox[1] + 80)
             assay = self.__get_text_by_bbox(page, new_bbox)
             return assay
+        except Exception:
+            self.logger.debug(traceback.format_exc())
+            return ''
+
+    def extract_reference_number(self):
+        page = self.pdf_plumber_obj.pages[0]
+        try:
+            bbox = page.bbox
+            new_bbox = (bbox[0], 80, bbox[2] / 2, bbox[1] + 160)
+            text = self.__get_text_by_bbox(page, new_bbox)
+            text = re.sub(r"[^\w\s]", ' ', text)
+            pattern_matches = self.reference_num_pattern.findall(str(text))
+            reference_num = pattern_matches[0] if len(pattern_matches) > 0 else ''
+            return reference_num
         except Exception:
             self.logger.debug(traceback.format_exc())
             return ''
