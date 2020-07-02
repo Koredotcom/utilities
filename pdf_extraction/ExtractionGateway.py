@@ -54,7 +54,7 @@ class ExtractionGateway(object):
                                             'extraction_count': extractor_result.extraction_count,
                                             'assay_title': extractor_result.assay_title
                                             }
-            if args.get('type') == 'c_ms':
+            if extractor_result.assay_acronym.__len__() > 0 :
                final_response['extraction']['assay_acronym'] = extractor_result.assay_acronym
             if args.get('type') == 'c_ps':
                 final_response['extraction']['pack_size'] = extractor_result.pack_size
