@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
+import html2text
+
+from pdf_extraction.constants import ORDER_INFORMATION
+from pdf_extraction.util.Stack import Stack
 from pdf_extraction.code_util.config.ConfigManager import ConfigManager
 from pdf_extraction.code_util.storage.StorageManager import StorageManager
 from pdf_extraction.util import decorator
@@ -242,6 +246,46 @@ class Utils(object):
                     result.append(pack_output)
 
             return result
+        except Exception:
+            self.logger.error(traceback.format_exc())
+            return []
+
+    def get_packsize_imm(self):
+        try:
+            pack_size = []
+            page = self.pdf_MuPDF_obj.loadPage(0)
+            stack = Stack()
+            h = html2text.HTML2Text()
+            for line in page.getText('html').splitlines():
+                line_text = h.handle(line)
+                if ("cobas" in line_text):
+                    while stack.size()>0:
+                        prev_line = stack.top()
+                        pattern_match = re.match(r'^([\s\d])+$',prev_line)
+                        if pattern_match:
+                            pack_size.append(prev_line)
+                            return pack_size
+                        stack.pop()
+                if ("english" in line_text.lower()):
+                    break
+                stack.push(line_text.replace('\n',''))
+            return  pack_size
+        except Exception:
+            self.logger.error(traceback.format_exc())
+            return []
+
+    def get_packsize(self):
+        try:
+            pack_size =[]
+            page = self.pdf_MuPDF_obj[0]
+            h = html2text.HTML2Text()
+            for line in page.getText('html').splitlines():
+               line_text = h.handle(line)
+               if (ORDER_INFORMATION.lower() in line_text.lower() or "english" in line_text.lower()):
+                   return pack_size
+               if("ml" in line_text.lower() or "tests" in line_text.lower() ):
+                   pack_size.append(line_text.replace("\n","").replace('*',''))
+            return  pack_size
         except Exception:
             self.logger.error(traceback.format_exc())
             return []

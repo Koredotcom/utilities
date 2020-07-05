@@ -32,6 +32,7 @@ class Method(Extractor):
         self.extraction_result.version_num = self.method_e.extract_version_number()
         self.extraction_result.doc_year_month = self.method_e.extract_doc_year_month()
         self.extraction_result.assay_title = self.method_e.extract_assay_title()
+        self.extraction_result.pack_size = self.method_e.extract_packsize()
         return self.extraction_result
 
     def validate(self):

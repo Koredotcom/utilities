@@ -52,7 +52,8 @@ class ExtractionGateway(object):
                                             'doc_year_month': extractor_result.doc_year_month,
                                             'title': extractor_result.title,
                                             'extraction_count': extractor_result.extraction_count,
-                                            'assay_title': extractor_result.assay_title
+                                            'assay_title': extractor_result.assay_title,
+                                            'pack_size':extractor_result.pack_size
                                             }
             if extractor_result.assay_acronym.__len__() > 0 :
                final_response['extraction']['assay_acronym'] = extractor_result.assay_acronym

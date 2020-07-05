@@ -115,6 +115,18 @@ class MethodExtractor(object):
             self.logger.error(traceback.format_exc())
             return result
 
+    def extract_packsize(self):
+        try:
+            pack_size = []
+            if(self.document_type =='e_ms'):
+                pack_size = self.utils.get_packsize_imm()
+            if(pack_size.__len__() == 0 or self.document_type == 'c_ms'):
+                pack_size = self.utils.get_packsize()
+            return  pack_size
+        except Exception:
+            self.logger.error(traceback.format_exc())
+            return []
+
     def extract_pack_size(self):
         try:
             if self.document_type in ['c_ps']:
