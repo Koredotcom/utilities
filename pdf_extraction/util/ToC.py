@@ -4,7 +4,6 @@
 import re
 import unicodedata
 
-import fitz
 import unidecode
 from PyPDF2 import PdfFileReader
 
@@ -62,10 +61,7 @@ def get_toc(filename):
 
 if __name__ == "__main__":
     file_name = ""
-    for i in range(1, 13):
+    for i in range(12, 14):
         file_name = "/home/satyaaditya/Downloads/roche version num docs/" + str(i) + ".pdf"
         result_ = get_toc(file_name)
-        a = fitz.Document(file_name)
-        a = a.getToC()
-        py_pdf_set1 = {i[0] for i in result_}
-        mu_set = {i[1] for i in a}
+        print result_
