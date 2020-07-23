@@ -24,3 +24,4 @@ lxml==4.2.5
 pdfplumber==0.5.11
 PyMuPDF==1.14.20
 PyPDF2==1.26.0
+Unidecode==0.4.21
