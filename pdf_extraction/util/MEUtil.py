@@ -167,11 +167,7 @@ class MethodExtractor(object):
     def extract_headings(self):
         """Extarct pdf into qna list"""
         toc = self.utils.get_table_of_contents()
-        topic_headings = []
-        for topic in toc:
-            if len(topic) > 2:
-                topic_headings.append(topic[1])
-        return topic_headings
+        return toc
 
     def extract_text(self, topic_headings, plain_text):
         """
