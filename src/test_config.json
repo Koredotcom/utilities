@@ -1,0 +1,8 @@
+{
+    "HOST":"https://bots.kore.ai",
+	"AuthToken":"",
+	"LOGFILE":"test.log", 
+    "DEBUG":true,
+	"VERIFY_SSL_CERT":true,
+	"BUILDER":false
+}
