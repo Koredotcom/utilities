@@ -21,3 +21,4 @@ wrapt==1.10.10
 XlsxWriter==0.9.8
 yapf==0.16.1
 pymongo
+Django

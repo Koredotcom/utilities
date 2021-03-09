@@ -13,7 +13,7 @@ from pymongo import MongoClient
 
 class TestSuite(object):
 
-    def __init__(self, name):
+    def __init__(self, name,input,fileName):
         self._name = name
         self.result = {}
         self.botName = None
@@ -23,6 +23,8 @@ class TestSuite(object):
         self.format = None
         self.bot = None
         self.discardMessage = None
+        self.input = input
+        self.fileName =fileName
 
     def begin(self):
         self.__loadTestCases()
@@ -34,14 +36,14 @@ class TestSuite(object):
     def __loadTestCases(self):
         testCases = []
         data = {}
-        client = MongoClient('localhost', 27017)
-        mydatabase = client['test_cases']
-        cursor = mydatabase.myTable.find()
-        for record in cursor:
+        #client = MongoClient('localhost', 27017)
+        #mydatabase = client['test_cases']
+        #cursor = mydatabase.myTable.find()
+        for key in self.input.keys():
             test_case = {
                 "discardBefore": True,
-                "name": str(record['_id']),
-                "messages": record['messages']
+                "name": str(key),
+                "messages": self.input[key]
             }
             testCases.append(test_case)
         self.botName = "Morgan Stanley POC"
@@ -53,9 +55,9 @@ class TestSuite(object):
     def __start(self):
         self.bot = self.__startConnection()
         now = datetime.now()
-        fileName = 'TestResults/'+self._name+ str(now.replace(microsecond=0)) +'.xlsx'
+       # fileName = 'TestResults/'+self._name+ str(now.replace(microsecond=0)) +'.xlsx'
         #fileName = 'TestResults/' + self._name + '.xlsx'
-        fileName = fileName.replace(':', "-")
+        fileName = self.fileName
         workbook = xlsxwriter.Workbook(fileName)
         worksheet = workbook.add_worksheet()
         worksheet2 = workbook.add_worksheet()
