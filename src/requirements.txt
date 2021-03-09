@@ -22,3 +22,4 @@ XlsxWriter==0.9.8
 yapf==0.16.1
 pymongo
 Django
+flask-cors

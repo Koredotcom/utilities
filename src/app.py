@@ -10,9 +10,11 @@ from bson.json_util import dumps
 from bson.objectid import ObjectId
 import os
 import pandas
+from flask_cors import CORS
 
 ALLOWED_EXTENSIONS = {'xlsx'}
 app = flask.Flask(__name__)
+CORS(app)
 client = MongoClient('localhost', 27017)
 
 
