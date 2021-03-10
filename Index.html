@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <title>ChatBot Testing</title>
 </head>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script type="text/javascript" src="lib/jquery-1.8.2.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 $("#TestCaseUpload").click(function(event){
 $("#TestCaseUpload").attr('disabled','disabled');
+$( "#result" ).empty()
 var fullPath = $('#TestCaseInputFile').val()
 jsonData = {'url':fullPath}
 $.ajax({
@@ -20,9 +21,14 @@ $.ajax({
     success: function(response){
         //if request if made successfully then the response represent the data
         var desiredText = 'Download Test Results'
-        var desiredLink =response['Output']
-        $( "#result" ).empty().append('<a href="'+desiredLink+'">'+desiredText+'</a>');
-        $("#TestCaseUpload").removeAttr('disabled')
+        if(response['error'] !== undefined){
+            $( "#result" ).empty().append(response['error']);
+            $("#TestCaseUpload").removeAttr('disabled')
+        }else{
+            var desiredLink =response['Output']
+            $( "#result" ).empty().append('<a href="'+desiredLink+'">'+desiredText+'</a>');
+            $("#TestCaseUpload").removeAttr('disabled')
+        }
     }
   });
 

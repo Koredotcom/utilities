@@ -1,9 +1,7 @@
 from TestSuite import *
 import json
-from html.parser import HTMLParser
 from pymongo import MongoClient
 import flask
-from flask import Flask, flash, request, redirect, url_for
 from xlsx2html import xlsx2html
 from flask import request
 from bson.json_util import dumps
@@ -63,7 +61,6 @@ def writeResults(name, countpass, countfail):
     f.close()
     return message
 
-
 f = open(resultsHtml, 'w')
 f.close()
 
@@ -87,13 +84,15 @@ def allowed_file(filename):
 @app.route('/testcase/upload_and_run', methods=['POST'])
 def add_run_testcase():
     rec = request.json
-    print(rec['url'])
+    debug.info(rec['url'])
+    if not allowed_file(rec['url']):
+        return flask.jsonify({'error':'Invalid file format'})
     excel_data_df = pandas.read_excel(rec['url'], sheet_name='TestSuite')
     json_str = excel_data_df.to_json(orient='records')
     json_obj = json.loads(json_str)
     conv_messages = {}
     for data in json_obj:
-        print(data['ConversationId'])
+        print(data)
         messages = []
         message_temp = {
             "input": "",
@@ -106,12 +105,12 @@ def add_run_testcase():
         if conv_messages.get(data['ConversationId']) is not None:
             messages = conv_messages[data['ConversationId']]
         message_temp['input'] = data['input']
-        message_temp['outputs'][0]['contains'] = data['ouput']
-
+        message_temp['outputs'][0]['contains'] = data['output']
+        message_temp['SequenceId']= data['SequenceId']
         messages.append(message_temp)
+        messages.sort(key = lambda i: i['SequenceId'])
         conv_messages[data['ConversationId']] = messages
-        print(conv_messages)
-    print(messages)
+
     testName = "MS_Multiturn"
     now = datetime.now()
     fileName = 'TestResults/' + testName + str(now.replace(microsecond=0)) + '.xlsx'

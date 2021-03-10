@@ -65,7 +65,10 @@ class TestSuite(object):
         self.format.set_text_wrap()
         self.countpass = 0
         self.countfail = 0
+        self.FN_count =0
+        self.FP_count =0
         self.total = 0
+
 
         bold = workbook.add_format({'bold': True})
         worksheet.write('A1', "ConversationId", bold)
@@ -74,10 +77,15 @@ class TestSuite(object):
         worksheet.write('D1', "Expected", bold)
         worksheet.write('E1', "ResultType", bold)
         worksheet.write('F1', "SequenceId", bold)
-        worksheet2.write('A1', "Pass", bold)
-        worksheet2.write('B1', "Fail", bold)
+        worksheet2.write('A1', "Pass(TP)", bold)
+        worksheet2.write('B1', "Fail(FP+FN)", bold)
         worksheet2.write('C1', "Total", bold)
-        worksheet2.write('D1', "Coverage", bold)
+        worksheet2.write('D1', "Coverage(TP/Total)", bold)
+        worksheet2.write('E1', "FN", bold)
+        worksheet2.write('F1', "FP", bold)
+        worksheet2.write('G1', "Precision", bold)
+        worksheet2.write('H1', "Recall", bold)
+        worksheet2.write('I1', "F1 Score", bold)
         start = datetime.now()
 
         for testCase in tqdm(self.testCases):
@@ -110,6 +118,7 @@ class TestSuite(object):
         worksheet.write('A' + str(self.index), testCase["name"])
         payload_map={}
         for message in testCase["messages"]:
+            status = 'FN'
             sequenceCount = sequenceCount +1
             outputs = message["outputs"]
             input= message["input"]
@@ -123,8 +132,9 @@ class TestSuite(object):
             if len(responses) != len(outputs):
                 self.bot = self.__reconnect()
                 if iter == 1:
-                    worksheet.write('E' + str(self.index), "FN", self.format)
+                    worksheet.write('E' + str(self.index), status, self.format)
                     self.countfail += 1
+                    self.FN_count += 1
                     worksheet2.write('B2', self.countfail)
                     worksheet2.write('C2', self.countpass + self.countfail)
                     worksheet.write('C' + str(self.index), str(responses), self.format)
@@ -171,7 +181,8 @@ class TestSuite(object):
 
                     else:
                         containsStr = containsObj
-                        if not TestUtil.validateContains(response.lower(), containsStr.lower()):
+                        isValidateContains, status = TestUtil.validateContains(response.lower(), containsStr.lower(),status)
+                        if not isValidateContains:
                             debug.info("User Input::" + message["input"] + ",TestCase:" + testCase[
                                 "name"] + " Failed,Actual: " + response + ",Expected: " + containsStr)
                             success = False
@@ -183,11 +194,21 @@ class TestSuite(object):
                             "name"] + " Failed,actual:" + response + " expected:" + outputs[i])
                         success = False
                 if not success:
-                    worksheet.write('E' + str(self.index), "FN", self.format)
+                    worksheet.write('E' + str(self.index), status, self.format)
+                    if status == 'FN':
+                        self.FN_count += 1
+                    if status == 'FP':
+                        self.FP_count += 1
                     self.countfail += 1
                     worksheet2.write('B2', self.countfail)
                     worksheet2.write('C2', self.countpass + self.countfail)
                     worksheet2.write('D2', (self.countpass / (self.countpass + self.countfail)) * 100)
+                    worksheet2.write('E2', self.FN_count)
+                    worksheet2.write('F2', self.FP_count)
+                    worksheet2.write('G2', (self.countpass / (self.countpass + self.FP_count)) * 100)
+                    worksheet2.write('H2', (self.countpass / (self.countpass + self.FN_count)) * 100)
+                    worksheet2.write('I2', ((self.countpass / (self.countpass + self.FN_count)) * 100 + (
+                    self.countpass / (self.countpass + self.FP_count)) * 100) / 2)
                     worksheet.write('C' + str(self.index), response + "", self.format)
                     worksheet.write('D' + str(self.index), containsStr + "", self.format)
                     worksheet.write('F' + str(self.index), str(sequenceCount), self.format)
@@ -203,6 +224,12 @@ class TestSuite(object):
         worksheet2.write('A2', self.countpass)
         worksheet2.write('C2', self.countpass + self.countfail)
         worksheet2.write('D2', (self.countpass / (self.countpass + self.countfail))*100)
+        worksheet2.write('E2', self.FN_count)
+        worksheet2.write('F2', self.FP_count)
+        worksheet2.write('G2',(self.countpass / (self.countpass + self.FP_count))*100)
+        worksheet2.write('H2', (self.countpass / (self.countpass + self.FN_count))*100)
+        worksheet2.write('I2', ((self.countpass / (self.countpass + self.FN_count)) * 100 + (self.countpass / (self.countpass + self.FP_count))*100)/2)
+
 
     def __reconnect(self):
         try:

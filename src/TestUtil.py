@@ -15,7 +15,9 @@ def extractMessageText(messageObj):
 				message = component["payload"]["payload"]["text"]
 	return message, messageObj["component"]
 
-def validateContains(actual, expected):
+def validateContains(actual, expected,status):
+	if 'discardingthetask'.lower() in actual.replace(' ', '').lower():
+		status = 'FP'
 	aWords = re.split("\W", actual)
 	eWords = re.split("\W", expected)
 	actualWords = ""
@@ -30,7 +32,7 @@ def validateContains(actual, expected):
 
 	debug.info("Actual Words:"+actualWords)
 	debug.info("Expected Words:"+expectedWords)
-	return expectedWords in actualWords
+	return expectedWords in actualWords, status
 
 def componentToText(messageObj):
 	message = ""
