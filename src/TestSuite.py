@@ -9,6 +9,7 @@ from tqdm import tqdm
 import re
 import TestUtil
 from pymongo import MongoClient
+import collections
 
 
 class TestSuite(object):
@@ -118,7 +119,7 @@ class TestSuite(object):
         worksheet.write('A' + str(self.index), testCase["name"])
         payload_map={}
         for message in testCase["messages"]:
-            status = 'FN'
+            status = 'FP'
             sequenceCount = sequenceCount +1
             outputs = message["outputs"]
             input= message["input"]
@@ -134,7 +135,7 @@ class TestSuite(object):
                 if iter == 1:
                     worksheet.write('E' + str(self.index), status, self.format)
                     self.countfail += 1
-                    self.FN_count += 1
+                    self.FP_count += 1
                     worksheet2.write('B2', self.countfail)
                     worksheet2.write('C2', self.countpass + self.countfail)
                     worksheet.write('C' + str(self.index), str(responses), self.format)
@@ -189,7 +190,12 @@ class TestSuite(object):
 
                 else:
                     containsStr = outputs[i]
-                    if response != outputs[i]:
+                    x = response.lower().split(" ")
+                    y = outputs[i].lower().split(" ")
+                    debug.info(x)
+                    debug.info(y)
+                    xy_result = (collections.Counter(list(filter(None, x))) == collections.Counter(list(filter(None, y))))
+                    if not xy_result:
                         debug.info("else User Input::" + message["input"] + ",TestCase:" + testCase[
                             "name"] + " Failed,actual:" + response + " expected:" + outputs[i])
                         success = False

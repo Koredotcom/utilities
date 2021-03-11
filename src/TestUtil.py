@@ -17,7 +17,7 @@ def extractMessageText(messageObj):
 
 def validateContains(actual, expected,status):
 	if 'discardingthetask'.lower() in actual.replace(' ', '').lower():
-		status = 'FP'
+		status = 'FN'
 	aWords = re.split("\W", actual)
 	eWords = re.split("\W", expected)
 	actualWords = ""

@@ -8,11 +8,9 @@ import uuid
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--config', help='test config json file', default="test_config.json")
-parser.add_argument('--results_html', help='results html file', default="Results.html")
 args = parser.parse_args()
 
 testConfig = args.config
-resultsHtml = args.results_html
 
 
 def getToken():
