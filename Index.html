@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>ChatBot Testing</title>
+    <style>
+        input[type=text] {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+    </style>
 </head>
+  <link rel="stylesheet" href="lib/bootstrap.min.css">
+  <script type="text/javascript" src="lib/bootstrap.min.js"></script>
 <script type="text/javascript" src="lib/jquery-1.8.2.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -12,6 +22,7 @@ $("#TestCaseUpload").attr('disabled','disabled');
 $( "#result" ).empty()
 var fullPath = $('#TestCaseInputFile').val()
 jsonData = {'url':fullPath}
+if (fullPath !== ''){
 $.ajax({
     type: "POST",
     url: 'http://localhost:5000/testcase/upload_and_run',
@@ -22,7 +33,7 @@ $.ajax({
         //if request if made successfully then the response represent the data
         var desiredText = 'Download Test Results'
         if(response['error'] !== undefined){
-            $( "#result" ).empty().append(response['error']);
+            $( "#result" ).empty().append('<p style="color:red;">response["error"]</p>');
             $("#TestCaseUpload").removeAttr('disabled')
         }else{
             var desiredLink =response['Output']
@@ -31,13 +42,20 @@ $.ajax({
         }
     }
   });
+  }else{
+   $( "#result").empty().append('<p style="color:red;">Please provide testsuite file</p>');
+            $("#TestCaseUpload").removeAttr('disabled')
+  }
 
 });
 });
 </script>
 <body>
-<input type="text" id="TestCaseInputFile"/>
-<button id="TestCaseUpload">Upload and Run</button>
-<div id="result"></div>
+<div style="text-align: center;padding-top:200px">
+    <input type="text" style="font-size:25px" id="TestCaseInputFile"/>
+    <button id="TestCaseUpload" style="font-size:35px" type="button" class="btn btn-success">Upload and Test</button>
+<div id="result" style="font-size:30px"></div>
+</div>
+
 </body>
 </html>
