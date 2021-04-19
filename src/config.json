@@ -1,0 +1,30 @@
+{
+    "BASE_URL": "https://bots.kore.ai/api/public/bot/",
+    "EXPORT_URL": "/export",
+    "IMPORT_URL": "/import",
+    "EXPORT_STATUS_URL": "/export/status",
+    "ZIP_LOC": "./bot.zip",
+    "EXTRACT_LOC": "./bot_data/",
+    "JWT": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImNzLTg0YWRkYTc2LTVjZjYtNWM3OC1hYTZlLTI5YWI0MTY3MzA4MiIsInN1YiI6IjEyMzQ1Njc4OTAifQ.ACCWUUJMSTuK6RLkTSwZ1ZOXl3fEDOD59hDjPdjLT8I",
+    "botId": "st-971996b4-532d-5f3a-8207-63808f980299",
+    "BOT_DEF_FILE_LOC": "./bot_data/botDefinition.json",
+    "BOT_CONFIG_FILE_LOC": "./bot_data/config.json",
+    "FILE_IMPORT_URL": "https://bots.kore.ai/api/public/uploadfile",
+    "AEM_URL": "http://localhost:8081/aem/questions/all",
+    "SMPT": {
+        "TRANSPORT": {
+            "host": "smtp.gmail.com",
+            "port": 587,
+            "secure": false,
+            "auth": {
+                "user": "aem.updates@gmail.com",
+                "pass": "Kore@4321"
+            }
+        },
+        "MAIL":{
+        "from":"aem.updates@gmail.com",
+        "to":"sudheer.panda@kore.com",
+        "subject": "AEM updated please check the bot ✔"
+        }
+    }
+}
