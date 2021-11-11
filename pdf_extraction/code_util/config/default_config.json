@@ -5,14 +5,14 @@
     "TEANAT_DB_NAME": ""
   },
   "pdf_extraction": {
-    "DOWNLOAD_DIRECTORY": "/mnt/nfs/",
+    "DOWNLOAD_DIRECTORY": "download",
     "DOWNLOAD_TIMEOUT": 10,
     "IMAGE_HOST_ENDPOINT" : "",
     "S3_BUCKET_NAME" : "",
     "SUB_FOLDER" : "",
     "IGNORE_INTENTS": ["References", "Symbols"],
     "INTENTS_WITH_SUBINTENTS": {
-        "Limits and ranges": ["Measuring range", "Lower limits of measurement"]
+      "Limits and ranges": ["Measuring range", "Measuring range (urine and CSF)", "Lower limits of measurement"]
       },
     "EXTRACT_TABLES": true,
     "IMAGE_RESOLUTION": 250,

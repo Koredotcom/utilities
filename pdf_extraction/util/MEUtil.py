@@ -180,6 +180,25 @@ class MethodExtractor(object):
         """Extarct pdf into qna list"""
         toc = self.utils.get_table_of_contents()
         topic_headings = []
+
+        if len(toc) > 0:
+            if "Intended use"  in toc[1]:
+                if "Summary" not in toc[2] and "Test principle" not in toc[3]:
+                    toc.insert(2, [1, "Summary", 1])
+                    toc.insert(3, [1,"Test principle", 1])
+                elif "Summary" not in toc[2]:
+                    toc.insert(2, [1, "Summary", 1])
+                elif "Test principle" not in toc[3]:
+                    toc.insert(3, [1, "Test principle", 1])
+            elif "Intended use"  in toc[0]:
+                if "Summary" not in toc[1] and "Test principle" not in toc[2]:
+                    toc.insert(1, [1, "Summary", 1])
+                    toc.insert(2, [1,"Test principle", 1])
+                elif "Summary" not in toc[2]:
+                    toc.insert(1, [1, "Summary", 1])
+                elif "Test principle" not in toc[3]:
+                    toc.insert(1, [2, "Test principle", 1])
+
         for topic in toc:
             if len(topic) > 2:
                 topic_headings.append(topic[1])
@@ -243,53 +262,72 @@ class MethodExtractor(object):
         @param plain_text_lines: list of text lines with headings in new lines
         @return:
         """
+        try:
+            asnwer_lines = 75
 
-        asnwer_lines = 75
+            plain_text_file_length = len(plain_text_lines)
+            compact_topic_heading = list(map(self.compact_string, topic_headings))
+            line_number = 0
+            topic_list = []
+            topic_dict = OrderedDict()
+            for line in plain_text_lines:
+                # print type(line), type(topic_headings[0])
+                compact_line = self.compact_string(line)
+                if line in topic_headings:
+                    if line in topic_dict:
+                        old_line_number = topic_dict[line.strip()]["Line Start"]    
+                        topic_dict[line.strip()] = {"question": line.strip(), "Line Start": min(old_line_number, line_number)}
+                    else:
+                        topic_dict[line.strip()] = {"question": line.strip(), "Line Start": line_number}
 
-        plain_text_file_length = len(plain_text_lines)
-        compact_topic_heading = list(map(self.compact_string, topic_headings))
-        line_number = 0
-        topic_list = []
-        topic_dict = OrderedDict()
-        for line in plain_text_lines:
-            # print type(line), type(topic_headings[0])
-            compact_line = self.compact_string(line)
-            if line in topic_headings:
-                topic_dict[line.strip()] = {"question": line.strip(), "Line Start": line_number}
-            elif compact_line in compact_topic_heading:
-                topic_headings_index = compact_topic_heading.index(compact_line)
-                topic_dict[topic_headings[topic_headings_index]] = {"question": line.strip(), "Line Start": line_number}
+                elif compact_line in compact_topic_heading:
+                    topic_headings_index = compact_topic_heading.index(compact_line)
+                    topic_dict[topic_headings[topic_headings_index]] = {"question": line.strip(), "Line Start": line_number}
 
-            line_number += 1
-        for key, val in topic_dict.items():
-            topic_list.append(val)
+                line_number += 1
+            for key, val in topic_dict.items():
+                topic_list.append(val)
 
-        if topic_list:
-            topic_list.sort(key=lambda heading: heading['Line Start'])
+            if topic_list:
+                topic_list.sort(key=lambda heading: heading['Line Start'])
 
-        result_list = []
-        for index in range(0, len(topic_list)):
+            result_list = []
+            for index in range(0, len(topic_list)):
 
-            obj = topic_list[index]
-            line_start = obj.get("Line Start")
+                obj = topic_list[index]
+                line_start = obj.get("Line Start")
 
-            answer_range = line_start + asnwer_lines
-            next_topic_line_start = sys.maxsize
-            if index + 1 < len(topic_list):
-                next_topic_line_start = topic_list[index + 1].get("Line Start")
+                answer_range = line_start + asnwer_lines
+                next_topic_line_start = sys.maxsize
+                if index + 1 < len(topic_list):
+                    next_topic_line_start = topic_list[index + 1].get("Line Start")
 
-            line_end = min(answer_range, next_topic_line_start, plain_text_file_length)
-            updated_obj = copy.deepcopy(obj)
-            updated_obj["Line End"] = line_end
+                line_end = min(answer_range, next_topic_line_start, plain_text_file_length)
+                updated_obj = copy.deepcopy(obj)
+                updated_obj["Line End"] = line_end
 
-            answer = ""
-            for linenumer in range(line_start + 1, line_end):
-                answer += plain_text_lines[linenumer].strip() + os.linesep
-            updated_obj["answer"] = answer
-            # print updated_obj
-            updated_obj.pop('Line End', None)
-            updated_obj.pop('Line Start', None)
-            result_list.append(copy.deepcopy(updated_obj))
+                answer = ""
+                for linenumer in range(line_start + 1, line_end):
+                    line = plain_text_lines[linenumer]
+                    #remove subscripts numbers from the content
+                    if len(line) > 0:
+                        if line[0].isdigit():
+                            line = line.lstrip('0123456789,- ')
+                    answer += line.strip() + os.linesep
+                # if len(answer) > 0:
+                #     if answer[-1] == "\n" and answer[-2].isdigit():
+                #         answer = answer.rstrip("\n")
+                #         answer = answer.rstrip('6789,- ')
+                #         print("--------answer----------")
+                #         print(answer)
+                #         print("--------answer----------")
+                updated_obj["answer"] = answer
+                # print updated_obj
+                updated_obj.pop('Line End', None)
+                updated_obj.pop('Line Start', None)
+                result_list.append(copy.deepcopy(updated_obj))
+        except Exception as e:
+            pass
         return result_list
 
     def extract_assay_title_with_acronym(self):

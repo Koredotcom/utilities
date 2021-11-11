@@ -16,3 +16,6 @@ class Stack:
 
     def top(self):
         return self.stack[-1]
+    
+    def middle(self):
+        return self.stack[-2]

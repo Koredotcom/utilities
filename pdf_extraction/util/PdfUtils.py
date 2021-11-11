@@ -261,10 +261,20 @@ class Utils(object):
                 if ("cobas" in line_text):
                     while stack.size()>0:
                         prev_line = stack.top()
+                        mid_line = stack.middle()
                         pattern_match = re.match(r'^([\s\d])+$',prev_line)
+                        pattern_match1 = re.match(r'^\d+;',mid_line)
                         if pattern_match:
                             pack_size.append(prev_line)
                             return pack_size
+                            
+                        elif pattern_match1:
+                            pack_list = re.findall(r'^\d+;',mid_line)
+                            pak_size = 0
+                            if pack_list:
+                                pak_size = pack_list[0].replace(';', '').strip()
+                                pack_size.append(pak_size)
+                                return pack_size
                         stack.pop()
                 if ("english" in line_text.lower()):
                     break
