@@ -310,9 +310,9 @@ class MethodExtractor(object):
                 for linenumer in range(line_start + 1, line_end):
                     line = plain_text_lines[linenumer]
                     #remove subscripts numbers from the content
-                    if len(line) > 0:
-                        if line[0].isdigit():
-                            line = line.lstrip('0123456789,- ')
+                    # if len(line) > 0:
+                    #     if line[0].isdigit():
+                    #         line = line.lstrip('0123456789,- ')
                     answer += line.strip() + os.linesep
                 # if len(answer) > 0:
                 #     if answer[-1] == "\n" and answer[-2].isdigit():
