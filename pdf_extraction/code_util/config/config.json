@@ -1,9 +1,11 @@
 {
   "pdf_extraction": {
-    "SEARCH_STRING": "",
-    "IMAGE_HOST_ENDPOINT" : "",
-    "S3_BUCKET_NAME" : "",
-    "SUB_FOLDER" : "rc1",
-    "UPLOAD_TO_S3": false
+  "SEARCH_STRING": "Roche Diagnostics",
+  "IMAGE_HOST_ENDPOINT" : "https://d3qjx6cpks9qux.cloudfront.net/",
+  "S3_BUCKET_NAME" : "korebotsqna",
+  "SUB_FOLDER" : "roche1",
+  "UPLOAD_TO_S3": true,
+  "DOWNLOAD_DIRECTORY": "/data/graph/",
+  "DOWNLOAD_TIMEOUT": 10
   }
-}
+  }
