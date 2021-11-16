@@ -5,7 +5,7 @@
     "TEANAT_DB_NAME": ""
   },
   "pdf_extraction": {
-    "DOWNLOAD_DIRECTORY": "/mnt/nfs/",
+    "DOWNLOAD_DIRECTORY": "download/",
     "DOWNLOAD_TIMEOUT": 10,
     "IMAGE_HOST_ENDPOINT" : "",
     "S3_BUCKET_NAME" : "",
