@@ -85,7 +85,7 @@ class Utils(object):
         try:
             cropped_page = self.pdf_plumber_obj.pages[page_no].crop(table_bbox)
             image_name = image_id + '.png'
-            local_image_location = pdf_extraction_config.get("DOWNLOAD_DIRECTORY") + image_name
+            local_image_location = os.getcwd() + pdf_extraction_config.get("DOWNLOAD_DIRECTORY") + image_name
             img = cropped_page.to_image(resolution=100)
             img.save(local_image_location, format="PNG")
             img_url = storage_manager.upload(local_image_location, image_name)
@@ -140,22 +140,22 @@ class Utils(object):
 
         result_obj = list()
         pdf_text_by_page = dict()
-        try:
-            for page_no in xrange(len(self.pdf_plumber_obj.pages)):
-                intermediate_obj = dict()
-                intermediate_obj['page_no'] = page_no
-                intermediate_obj['page_text'] = self.extract_page_text(page_no)
-                # extract tables only if required
-                intermediate_obj['tables'] = self.extract_table(page_no) if self.extract_tables else []
-                result_obj.append(intermediate_obj)
-            for page_no in range(self.pdf_MuPDF_obj.pageCount):
-                page_text = self.remove_footer_from_page_text(self.pdf_MuPDF_obj[page_no].getText())
-                pdf_text_by_page[page_no] = copy.deepcopy(page_text)
+        # try:
+        for page_no in xrange(len(self.pdf_plumber_obj.pages)):
+            intermediate_obj = dict()
+            intermediate_obj['page_no'] = page_no
+            intermediate_obj['page_text'] = self.extract_page_text(page_no)
+            # extract tables only if required
+            intermediate_obj['tables'] = self.extract_table(page_no) if self.extract_tables else []
+            result_obj.append(intermediate_obj)
+        for page_no in range(self.pdf_MuPDF_obj.pageCount):
+            page_text = self.remove_footer_from_page_text(self.pdf_MuPDF_obj[page_no].getText())
+            pdf_text_by_page[page_no] = copy.deepcopy(page_text)
 
             return [result_obj, pdf_text_by_page]
-        except Exception:
-            self.logger.debug(traceback.format_exc())
-            return [list(), dict()]
+        # except Exception:
+        #     self.logger.debug(traceback.format_exc())
+        #     return [list(), dict()]
 
     def get_image_with_page_bbox(self, page, rect):
         """mupdf: take page within page using bbox"""

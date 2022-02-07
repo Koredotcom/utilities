@@ -14,6 +14,7 @@ extractionGateway = ExtractionGateway()
 config_manager = ConfigManager()
 pdf_extraction_config = config_manager.load_config("pdf_extraction")
 upload_folder = pdf_extraction_config.get("DOWNLOAD_DIRECTORY")
+upload_folder = os.getcwd() + upload_folder
 storage_manager= StorageManager()
 
 allowed_ext = set(['png', 'jpg', 'jpeg', 'gif', 'pdf'])
@@ -80,7 +81,7 @@ def init(app):
                 filename = secure_filename(file.filename)
                 print "filename", filename
                 file_uuid = uuid.uuid4().hex
-                file_location = os.path.join(upload_folder, file_uuid )
+                file_location = os.path.join(upload_folder, filename )
                 print file_location
                 file.save(file_location)
                 args = dict()
